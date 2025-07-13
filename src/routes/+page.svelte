@@ -12,7 +12,7 @@
 </script>
 
 <main class="container">
-  <h1>Sergio Fleto, desde src/routes/+page.svelte</h1>
+  <h1>Sergio gay, desde src/routes/+page.svelte</h1>
 
   <div class="row">
     <a href="https://vitejs.dev" target="_blank">
