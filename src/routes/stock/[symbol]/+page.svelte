@@ -39,7 +39,6 @@
 </div>
 
 <style>
-  /* Agrega este estilo para el botón de volver */
   .back-button {
     background-color: #444;
     color: white;
@@ -81,7 +80,6 @@
     margin: 0;
   }
 
-  /* Contenido principal */
   .main-content {
     display: flex;
     flex: 1;
