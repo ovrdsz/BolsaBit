@@ -1,156 +1,150 @@
 <script>
-  import { invoke } from "@tauri-apps/api/core";
+  import { goto } from '$app/navigation';
 
-  let name = $state("");
-  let greetMsg = $state("");
+  let searchTerm = '';
 
-  async function greet(event) {
-    event.preventDefault();
-    // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    greetMsg = await invoke("greet", { name });
+  const popularStocks = [
+    { symbol: 'AAPL', name: 'Apple Inc.' },
+    { symbol: 'GOOGL', name: 'Alphabet Inc.' },
+    { symbol: 'MSFT', name: 'Microsoft Corp.' },
+    { symbol: 'TSLA', name: 'Tesla, Inc.' },
+    { symbol: 'AMZN', name: 'Amazon.com, Inc.' },
+  ];
+
+  function search() {
+    if (searchTerm.trim()) {
+      goto(`/stock/${searchTerm.toUpperCase()}`);
+    }
   }
 </script>
 
-<main class="container">
-  <h1>Sergio gay, desde src/routes/+page.svelte</h1>
+<div class="home-container">
+  <div class="content">
+    <h1 class="brand-title">BolsaBit 📈</h1>
+    <p class="subtitle">Tu asistente de análisis de acciones (que usa derivadas 🙂)</p>
 
-  <div class="row">
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo vite" alt="Vite Logo" />
-    </a>
-    <a href="https://tauri.app" target="_blank">
-      <img src="/tauri.svg" class="logo tauri" alt="Tauri Logo" />
-    </a>
-    <a href="https://kit.svelte.dev" target="_blank">
-      <img src="/svelte.svg" class="logo svelte-kit" alt="SvelteKit Logo" />
-    </a>
+    <form class="search-form" on:submit|preventDefault={search}>
+      <input
+        type="text"
+        placeholder="Buscar un símbolo de acción (ej. AAPL)"
+        bind:value={searchTerm}
+      />
+      <button type="submit">Buscar</button>
+    </form>
+
+    <div class="popular-stocks">
+      <h2>Acciones Populares</h2>
+      <div class="stock-list">
+        {#each popularStocks as stock}
+          <a href="/stock/{stock.symbol}" class="stock-item">
+            <span class="symbol">{stock.symbol}</span>
+            <span class="name">{stock.name}</span>
+          </a>
+        {/each}
+      </div>
+    </div>
   </div>
-  <p>Click on the Tauri, Vite, and SvelteKit logos to learn more.</p>
-
-  <form class="row" onsubmit={greet}>
-    <input id="greet-input" placeholder="Enter a name..." bind:value={name} />
-    <button type="submit">Greet</button>
-  </form>
-  <p>{greetMsg}</p>
-</main>
+</div>
 
 <style>
-.logo.vite:hover {
-  filter: drop-shadow(0 0 2em #747bff);
-}
-
-.logo.svelte-kit:hover {
-  filter: drop-shadow(0 0 2em #ff3e00);
-}
-
-:root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
-
-  color: #0f0f0f;
-  background-color: #f6f6f6;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-}
-
-.container {
-  margin: 0;
-  padding-top: 10vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: 0.75s;
-}
-
-.logo.tauri:hover {
-  filter: drop-shadow(0 0 2em #24c8db);
-}
-
-.row {
-  display: flex;
-  justify-content: center;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-
-a:hover {
-  color: #535bf2;
-}
-
-h1 {
-  text-align: center;
-}
-
-input,
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  color: #0f0f0f;
-  background-color: #ffffff;
-  transition: border-color 0.25s;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-}
-
-button {
-  cursor: pointer;
-}
-
-button:hover {
-  border-color: #396cd8;
-}
-button:active {
-  border-color: #396cd8;
-  background-color: #e8e8e8;
-}
-
-input,
-button {
-  outline: none;
-}
-
-#greet-input {
-  margin-right: 5px;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    color: #f6f6f6;
-    background-color: #2f2f2f;
+  :global(body) {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: #121212;
+    color: #e0e0e0;
+    overflow: hidden;
   }
 
-  a:hover {
-    color: #24c8db;
+  .home-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100vh;
+    padding: 2rem;
   }
 
-  input,
-  button {
-    color: #ffffff;
-    background-color: #0f0f0f98;
+  .content {
+    max-width: 600px;
+    width: 100%;
   }
-  button:active {
-    background-color: #0f0f0f69;
-  }
-}
 
+  .brand-title {
+    font-size: 4rem;
+    font-weight: 700;
+    color: #007acc;
+    margin: 0;
+  }
+
+  .subtitle {
+    font-size: 1.25rem;
+    color: #888;
+    margin-bottom: 3rem;
+  }
+
+  .search-form {
+    display: flex;
+    margin-bottom: 4rem;
+  }
+
+  .search-form input {
+    flex-grow: 1;
+    padding: 1rem;
+    font-size: 1rem;
+    border: 1px solid #333;
+    background-color: #222;
+    color: #e0e0e0;
+    border-radius: 8px 0 0 8px;
+  }
+  
+  .search-form button {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    border: none;
+    background-color: #007acc;
+    color: white;
+    cursor: pointer;
+    border-radius: 0 8px 8px 0;
+    transition: background-color 0.2s;
+  }
+
+  .search-form button:hover {
+    background-color: #005f9e;
+  }
+  
+  .popular-stocks h2 {
+    text-align: left;
+    color: #aaa;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 0.5rem;
+  }
+
+  .stock-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .stock-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color: #222;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #e0e0e0;
+    transition: background-color 0.2s;
+  }
+
+  .stock-item:hover {
+    background-color: #333;
+  }
+  
+  .stock-item .symbol {
+    font-weight: bold;
+  }
 </style>
