@@ -169,7 +169,6 @@
 </div>
 
 <style>
-<<<<<<< HEAD
   .app-container {
     display: flex;
     flex-direction: column;
@@ -187,8 +186,6 @@
     font-size: 1.5rem;
     margin: 0;
   }
-=======
->>>>>>> 857985b7532288fcb8bb5819c961e88ea36f4ced
   .back-button {
     background-color: #444;
     color: white;
@@ -200,39 +197,6 @@
   .back-button:hover {
     background-color: #555;
   }
-<<<<<<< HEAD
-=======
-
-  :global(body) {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    background-color: #1e1e1e;
-    color: #e0e0e0;
-    overflow: hidden;
-  }
-
-  .app-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-  }
-
-  .controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background-color: #2a2a2a;
-    border-bottom: 1px solid #444;
-  }
-  
-  .title {
-    font-size: 1.5rem;
-    margin: 0;
-  }
-
->>>>>>> 857985b7532288fcb8bb5819c961e88ea36f4ced
   .main-content {
     display: flex;
     flex: 1;
@@ -291,7 +255,6 @@
   .data-value.negative {
     color: #f44336;
   }
-<<<<<<< HEAD
   .time-range-selector {
     display: flex;
     justify-content: center;
@@ -316,6 +279,3 @@
     color: #fff;
   }
 </style>
-=======
-</style>
->>>>>>> 857985b7532288fcb8bb5819c961e88ea36f4ced
